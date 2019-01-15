@@ -14,10 +14,40 @@ class JQuery extends Base
     protected $numericRules = ['integer', 'numeric'];
 
     /**
+     * Remove invalid rules
+     *
+     * @param array $rules
+     * @return array
+     */
+    protected function removeInvalidRules(array $rules)
+    {
+        foreach ($rules as $key => &$item)
+        {
+            if($item instanceof \Closure)
+            {
+                unset($rules[$key]);
+                continue;
+            }
+
+            if (is_array($item))
+            {
+                $item = $this->removeInvalidRules($item);
+            }
+        }
+
+        return $rules;
+    }
+
+    /**
      * @param array $rules
      */
     public function setRules($rules)
     {
+        if (is_array($rules))
+        {
+            $rules = $this->removeInvalidRules($rules);
+        }
+
         $this->rules = $rules;
     }
 
