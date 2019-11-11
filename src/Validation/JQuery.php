@@ -1,4 +1,8 @@
-<?php namespace inkvizytor\FluentForm\Validation;
+<?php
+
+namespace inkvizytor\FluentForm\Validation;
+
+use Illuminate\Support\Str;
 
 /**
  * Class JQuery
@@ -169,7 +173,7 @@ class JQuery extends Base
      */
     protected function getRuleMethodName($ruleName)
     {
-        return 'prepareRule'.studly_case($ruleName);
+        return 'prepareRule'.Str::studly($ruleName);
     }
 
     /**
@@ -178,7 +182,7 @@ class JQuery extends Base
      */
     protected function getMessageMethodName($ruleName)
     {
-        return 'prepareMessage'.studly_case($ruleName);
+        return 'prepareMessage'.Str::studly($ruleName);
     }
 
     /**
